@@ -115,3 +115,10 @@ values(15, '20221216', 'Trancoso da Silva', 1, 5, 1, '20221201', 4, 'EL', '9:05:
 	  (15, '20221216', 'Trancoso da Silva', 1, 3, 1, '20221201', 4, 'OK', '10:15:29')
 commit;
 select * from producao.controle_qualidade;
+
+--------------------------------------------------------------------------------------------------
+select hr_controle_qualidade, count(*)
+from producao.controle_qualidade
+group by hr_controle_qualidade
+order by hr_controle_qualidade;
+--vou precisar inserir na tabela hr_inicio_trabalho / hr_fim_trabalho ?? Para responder pergunta 1.
