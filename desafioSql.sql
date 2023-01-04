@@ -37,7 +37,8 @@ create table producao.ficha(
 	foreign key(cd_matricula_inspetor) references producao.inspetor(cd_matricula_inspetor)
 );
 
-create table producao.controle_qualidade(
+--talvez não precise fazer essa tabela tão cheia pq no fim vou usar comandos que vai unir tabelas diferentes
+create table producao.controle_qualidade( 
 	cd_controle_qualidade int primary key identity(1, 1),
 	hr_controle_qualidade time not null,
 	cd_numero_ficha int not null,--foreign key
@@ -114,11 +115,15 @@ values(15, '20221216', 'Trancoso da Silva', 1, 5, 1, '20221201', 4, 'EL', '9:05:
 commit;
 select * from producao.controle_qualidade;
 
+-- hr_inicio_controle_qualidade / hr_fim_controle_qualidade (para cada dia) -> Para responder pergunta 1.
+-- hr_inicio_trabalho / hr_fim_trabalho (para cada dia) -> Para responder pergunta 2.
+-- sg_avaliacao (já tem) / precisa ter dt_inspecao diferentes (está tudo no msm dia) -> Para responder pergunta 3.
+-- preciso ter outros inspetores na ficha avaliando (TR). não só o Trancoso da Silva -> Para respoder pergunta 4.
+-- 5?
+
 --------------------------------------------------------------------------------------------------
 select hr_controle_qualidade, count(*) --função de agregação
 from producao.controle_qualidade
 group by hr_controle_qualidade
 order by hr_controle_qualidade;
---vou precisar inserir na tabela hr_inicio_trabalho / hr_fim_trabalho ?? Para responder pergunta 1.
-
 --------------------------------------------------------------------------------------------------
