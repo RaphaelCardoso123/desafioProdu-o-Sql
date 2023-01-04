@@ -1,7 +1,6 @@
 use desafio;
 create schema producao;
 
-
 create table producao.linha_producao(
 	cd_linha_producao int primary key identity(1, 1),
 	dt_linha_producao date not null
@@ -27,9 +26,7 @@ create table producao.avaliacao(
 	ds_avaliacao varchar(30) not null
 );
 
---não pode ser identity(1, 1) auto incrementável pq é um código único para cada inspetor, 
---mas de outra forma não se pode repetir o código por ser primary key
---como fazer???
+--não pode ser identity (1, 1) auto incrementavel pq é um código único para cada inspetor
 create table producao.inspetor(
 	cd_matricula_inspetor int primary key identity(1, 1),
 	nm_inspetor varchar(30) not null,
@@ -95,6 +92,7 @@ values('OK', 'Liberado'), ('EL', 'Problema elétrico'), ('PT', 'Problema de pintu
 commit;
 select * from producao.avaliacao;
 
+--não pode ser identity (1, 1) auto incrementavel pq é um código único para cada inspetor
 begin transaction;
 insert into producao.inspetor(nm_inspetor, dt_trabalho, hr_inicio_trabalho, hr_fim_trabalho)
 values('Trancoso da Silva', '20221201', '9:05', '11:05'), ('Trancoso da Silva', '20221205', '9:00', '11:00'),
@@ -105,11 +103,21 @@ values('Trancoso da Silva', '20221201', '9:05', '11:05'), ('Trancoso da Silva', 
 commit;
 select * from producao.inspetor;
 
---ainda não está feito, só foi copiado e colado do antigo
 begin transaction; 
 insert into producao.ficha(dt_inspecao, cd_matricula_inspetor, nm_inspetor)
-values('20221201', 3), ('20221202', 2), ('20221206', 3), ('20221207', 4), ('20221210', 5),
-('20221215', 1), ('20221216', 2), ('20221217', 3), ('20221218', 4), ('20221219', 5),
-('20221220', 3), ('20221221', 1), ('20221222', 5), ('20221223', 4), ('20221224', 5)
+values('20221201', 1, 'Trancoso da Silva'), ('20221205', 2, 'Trancoso da Silva'),
+	  ('20221207', 3, 'Trancoso da Silva'), ('20221216', 4, 'Trancoso da Silva'), 
+	  ('20221209', 5, 'Pedro do Monte'), ('20221210', 6, 'Pedro do Monte'),
+	  ('20221214', 7, 'José Carmelo'), ('20221218', 8, 'José Carmelo'),
+	  ('20221220', 9, 'Júlio Cardoso'), ('20221222', 10, 'Júlio Cardoso'),
+	  ('20221224', 7, 'José Carmelo'), ('20221225', 7, 'José Carmelo'),
+	  ('20221226', 9, 'Júlio Cardoso'), ('20221227', 10, 'Júlio Cardoso'), ('20221228', 10, 'Júlio Cardoso')
 commit;
 select * from producao.ficha;
+
+begin transaction;
+insert into producao.produto(dt_produto, cd_linha_producao, cd_tipo_produto, nm_tipo_produto)
+values('20221201', 1, 2, 'Máquina de lavar'), ('20221209', 2, 3, 'Fogão'), ('20221216', 1, 1, 'Geladeira'),
+	  ('20221218', 4, 5, 'Frigobar'), ('20221222', 5, 4, 'Freezer')
+commit;
+select * from producao.produto;
