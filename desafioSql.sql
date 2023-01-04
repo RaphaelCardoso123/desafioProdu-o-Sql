@@ -88,7 +88,7 @@ commit;
 select * from producao.inspetor;
 
 
-begin transaction; 
+begin transaction; --ficaria legal por último adicionar nm_inspetor
 insert into producao.ficha(dt_inspecao, cd_matricula_inspetor)
 values('20221201', 3), ('20221202', 2), ('20221206', 3), ('20221207', 4), ('20221210', 5),
 ('20221215', 1), ('20221216', 2), ('20221217', 3), ('20221218', 4), ('20221219', 5),
@@ -97,14 +97,14 @@ commit;
 select * from producao.ficha;
 
 
-begin transaction; 
+begin transaction; --ficaria legal por último adicionar nm_produto
 insert into producao.produto(dt_produto, cd_linha_producao, cd_tipo_produto)
 values('20221201', 1, 2), ('20221209', 2, 3), ('20221216', 1, 1), ('20221218', 4, 5), ('20221222', 5, 4)
 commit;
 select * from producao.produto;
 
 
-begin transaction; 
+begin transaction;--ficaria legal colocar datas diferentes em dt_inspecao / dt_linha_producao
 insert into producao.controle_qualidade(cd_numero_ficha, dt_inspecao, nm_inspetor, cd_matricula_inspetor, cd_id_produto,
 cd_linha_producao, dt_linha_producao, cd_tipo_produto, sg_avaliacao, hr_controle_qualidade)
 values(15, '20221216', 'Trancoso da Silva', 1, 5, 1, '20221201', 4, 'EL', '9:05:15'), 
