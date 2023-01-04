@@ -1,7 +1,6 @@
 use desafio;
 create schema producao;
 
-
 create table producao.linha_producao(
 	cd_linha_producao int primary key identity(1, 1),
 	dt_linha_producao date not null
@@ -58,7 +57,6 @@ create table producao.controle_qualidade(
 	foreign key(sg_avaliacao) references producao.avaliacao(sg_avaliacao)
 );
 
-
 begin transaction;
 insert into producao.linha_producao(dt_linha_producao)
 values('20221201'), ('20221205'), ('20221216'), ('20221218'), ('20221222')
@@ -88,7 +86,7 @@ commit;
 select * from producao.inspetor;
 
 
-begin transaction; --ficaria legal por último adicionar nm_inspetor
+begin transaction; --ficaria legal adicionar por último o nm_inspetor
 insert into producao.ficha(dt_inspecao, cd_matricula_inspetor)
 values('20221201', 3), ('20221202', 2), ('20221206', 3), ('20221207', 4), ('20221210', 5),
 ('20221215', 1), ('20221216', 2), ('20221217', 3), ('20221218', 4), ('20221219', 5),
@@ -97,14 +95,14 @@ commit;
 select * from producao.ficha;
 
 
-begin transaction; --ficaria legal por último adicionar nm_produto
+begin transaction;--ficaria legal adicionar por último nm_produto
 insert into producao.produto(dt_produto, cd_linha_producao, cd_tipo_produto)
 values('20221201', 1, 2), ('20221209', 2, 3), ('20221216', 1, 1), ('20221218', 4, 5), ('20221222', 5, 4)
 commit;
 select * from producao.produto;
 
 
-begin transaction;--ficaria legal colocar datas diferentes em dt_inspecao / dt_linha_producao
+begin transaction; --ficaria legal colocar datas diferentes em dt_inspecao / dt_linha_producao
 insert into producao.controle_qualidade(cd_numero_ficha, dt_inspecao, nm_inspetor, cd_matricula_inspetor, cd_id_produto,
 cd_linha_producao, dt_linha_producao, cd_tipo_produto, sg_avaliacao, hr_controle_qualidade)
 values(15, '20221216', 'Trancoso da Silva', 1, 5, 1, '20221201', 4, 'EL', '9:05:15'), 
@@ -117,8 +115,10 @@ commit;
 select * from producao.controle_qualidade;
 
 --------------------------------------------------------------------------------------------------
-select hr_controle_qualidade, count(*)
+select hr_controle_qualidade, count(*) --função de agregação
 from producao.controle_qualidade
 group by hr_controle_qualidade
 order by hr_controle_qualidade;
 --vou precisar inserir na tabela hr_inicio_trabalho / hr_fim_trabalho ?? Para responder pergunta 1.
+
+--------------------------------------------------------------------------------------------------
