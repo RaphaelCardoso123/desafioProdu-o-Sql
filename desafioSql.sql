@@ -137,3 +137,16 @@ values('20221201', '8:00', '11:55', 1, '20221201', 1, 'Trancoso da Silva', '2022
 	  ('20221220', '8:00', '11:55', 3, '20221220', 9, 'Júlio Cardoso', '20221220','9:15', '11:15', 4, 9, '20221220', 4, 'PE')
 commit;
 select * from producao.controle_qualidade;
+
+--------------------------------------------------------------------------------------------------------------------------------
+select dt_trabalho, count(*) --função de agregação
+from producao.controle_qualidade
+group by dt_trabalho
+order by dt_trabalho;
+--------------------------------------------------------------------------------------------------------------------------------
+--1. Quantas horas de controle de qualidade o inspetor Trancoso da Silva fez no dia 16/12/2022 ?
+select i.nm_inspetor, count(*), cq.hr_inicio_trabalho, cq.hr_fim_trabalho, i.dt_trabalho
+from producao.inspetor as i, producao.controle_qualidade as cq
+where i.nm_inspetor = cq.nm_inspetor
+group by i.nm_inspetor, i.dt_trabalho, cq.hr_inicio_trabalho, cq.hr_fim_trabalho
+order by i.nm_inspetor;
