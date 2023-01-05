@@ -124,6 +124,7 @@ select * from producao.produto;
 
 
 --não pode ser identity (1, 1) auto incrementavel pq é um código único para cada inspetor
+--está fazendo com que repita datas e horarios de trabalho TABELAS: producao.inspetor / producao.controle_qualidade	-> teste pergunta n°2
 begin transaction; 
 insert into producao.controle_qualidade	
 	(dt_controle_qualidade,		hr_inicio_controle_qualidade,	hr_fim_controle_qualidade,	 cd_numero_ficha,
@@ -151,7 +152,7 @@ where i.nm_inspetor = 'Trancoso da Silva' and i.dt_trabalho = '20221216' and i.n
 group by i.nm_inspetor, i.dt_trabalho, cq.hr_inicio_trabalho, cq.hr_fim_trabalho
 order by i.nm_inspetor;
 --------------------------------------------------------------------------------------------------------------------------------
---teste
+--teste pergunta n°2
 select i.nm_inspetor, count(*),  i.dt_trabalho, cq.hr_inicio_trabalho, cq.hr_fim_trabalho
 from producao.inspetor as i, producao.controle_qualidade as cq
 where i.nm_inspetor = 'Trancoso da Silva' and i.nm_inspetor  = cq.nm_inspetor
