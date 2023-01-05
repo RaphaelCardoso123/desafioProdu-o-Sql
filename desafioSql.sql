@@ -151,3 +151,9 @@ where i.nm_inspetor = 'Trancoso da Silva' and i.dt_trabalho = '20221216' and i.n
 group by i.nm_inspetor, i.dt_trabalho, cq.hr_inicio_trabalho, cq.hr_fim_trabalho
 order by i.nm_inspetor;
 --------------------------------------------------------------------------------------------------------------------------------
+--teste
+select i.nm_inspetor, count(*),  i.dt_trabalho, cq.hr_inicio_trabalho, cq.hr_fim_trabalho
+from producao.inspetor as i, producao.controle_qualidade as cq
+where i.nm_inspetor = 'Trancoso da Silva' and i.nm_inspetor  = cq.nm_inspetor
+group by i.nm_inspetor, i.dt_trabalho, cq.hr_inicio_trabalho, cq.hr_fim_trabalho
+order by i.dt_trabalho;
