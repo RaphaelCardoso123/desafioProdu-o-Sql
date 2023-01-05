@@ -145,8 +145,9 @@ group by dt_trabalho
 order by dt_trabalho;
 --------------------------------------------------------------------------------------------------------------------------------
 --1. Quantas horas de controle de qualidade o inspetor Trancoso da Silva fez no dia 16/12/2022 ?
-select i.nm_inspetor, count(*), cq.hr_inicio_trabalho, cq.hr_fim_trabalho, i.dt_trabalho
+select i.nm_inspetor, count(*),  i.dt_trabalho, cq.hr_inicio_trabalho, cq.hr_fim_trabalho
 from producao.inspetor as i, producao.controle_qualidade as cq
-where i.nm_inspetor = cq.nm_inspetor
+where i.nm_inspetor = 'Trancoso da Silva' and i.dt_trabalho = '20221216' and i.nm_inspetor  = cq.nm_inspetor
 group by i.nm_inspetor, i.dt_trabalho, cq.hr_inicio_trabalho, cq.hr_fim_trabalho
 order by i.nm_inspetor;
+--------------------------------------------------------------------------------------------------------------------------------
