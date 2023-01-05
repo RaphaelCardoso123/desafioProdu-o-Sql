@@ -121,3 +121,19 @@ values('20221201', 1, 2, 'Máquina de lavar'), ('20221209', 2, 3, 'Fogão'), ('202
 	  ('20221218', 4, 5, 'Frigobar'), ('20221222', 5, 4, 'Freezer')
 commit;
 select * from producao.produto;
+
+
+--não pode ser identity (1, 1) auto incrementavel pq é um código único para cada inspetor
+begin transaction; 
+insert into producao.controle_qualidade	
+	(dt_controle_qualidade,		hr_inicio_controle_qualidade,	hr_fim_controle_qualidade,	 cd_numero_ficha,
+	 dt_inspecao,	cd_matricula_inspetor,	nm_inspetor,	dt_trabalho,	hr_inicio_trabalho,	hr_fim_trabalho,
+	 cd_id_produto,		cd_linha_producao,		dt_linha_producao,		cd_tipo_produto,	sg_avaliacao)
+values('20221201', '8:00', '11:55', 1, '20221201', 1, 'Trancoso da Silva', '20221201','9:05', '11:05', 1, 1, '20221201', 2, 'TR'), 
+	  ('20221205', '8:00', '11:55', 1, '20221205', 2, 'Trancoso da Silva', '20221205','9:00', '11:00', 5, 2, '20221205', 3, 'TR'),
+	  ('20221207', '8:00', '11:55', 1, '20221207', 3, 'Trancoso da Silva', '20221207','9:10', '11:10', 3, 3, '20221207', 3, 'OK'),
+	  ('20221216', '8:00', '11:55', 1, '20221216', 4, 'Trancoso da Silva', '20221216','9:00', '11:10', 1, 7, '20221216', 1, 'TR'), 
+	  ('20221209', '8:00', '11:55', 2, '20221209', 6, 'Pedro do Monte', '20221209','9:10', '11:10', 2, 4, '20221209', 5, 'EL'),
+	  ('20221220', '8:00', '11:55', 3, '20221220', 9, 'Júlio Cardoso', '20221220','9:15', '11:15', 4, 9, '20221220', 4, 'PE')
+commit;
+select * from producao.controle_qualidade;
