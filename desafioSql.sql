@@ -158,3 +158,14 @@ from producao.inspetor as i, producao.controle_qualidade as cq
 where i.nm_inspetor = 'Trancoso da Silva' and i.nm_inspetor  = cq.nm_inspetor
 group by i.nm_inspetor, i.dt_trabalho, cq.hr_inicio_trabalho, cq.hr_fim_trabalho
 order by i.dt_trabalho;
+--------------------------------------------------------------------------------------------------------------------------------
+--2. Quantas horas o inspetor Trancoso da Silva trabalhou no período de 01/12/2022 à 22/12/2022?
+
+--------------------------------------------------------------------------------------------------------------------------------
+--3. Quais os tipos de defeito mais recorrentes no período de 01/12/2022 à 22/12/2022?
+
+--------------------------------------------------------------------------------------------------------------------------------
+--4. Quais inspetores atestam mais produtos com avaliação TR, todo rejeitado?
+
+--------------------------------------------------------------------------------------------------------------------------------
+--5. Quais produtos que só foram liberados depois da detecção de algum problema?
