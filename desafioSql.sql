@@ -1,6 +1,7 @@
 use desafio;
 create schema producao;
 
+
 create table producao.linha_producao(
 	cd_linha_producao int primary key identity(1, 1),
 	dt_linha_producao date not null
@@ -53,9 +54,6 @@ create table producao.controle_qualidade(
 	dt_inspecao date not null,
 	cd_matricula_inspetor int not null,--foreign key
 	nm_inspetor varchar(30) not null,
-	dt_trabalho date not null,
-	hr_inicio_trabalho time not null,
-	hr_fim_trabalho time not null,
 	cd_id_produto int not null,--foreign key
 	cd_linha_producao int not null,--foreign key
 	dt_linha_producao date not null,
@@ -93,6 +91,7 @@ commit;
 select * from producao.avaliacao;
 
 --não pode ser identity (1, 1) auto incrementavel pq é um código único para cada inspetor
+--como tirar os zeros dos horários??
 begin transaction;
 insert into producao.inspetor(nm_inspetor, dt_trabalho, hr_inicio_trabalho, hr_fim_trabalho)
 values('Trancoso da Silva', '20221201', '9:05', '11:05'), ('Trancoso da Silva', '20221205', '9:00', '11:00'),
@@ -103,15 +102,16 @@ values('Trancoso da Silva', '20221201', '9:05', '11:05'), ('Trancoso da Silva', 
 commit;
 select * from producao.inspetor;
 
+--cd_matricula
 begin transaction; 
 insert into producao.ficha(dt_inspecao, cd_matricula_inspetor, nm_inspetor)
-values('20221201', 1, 'Trancoso da Silva'), ('20221205', 2, 'Trancoso da Silva'),
-	  ('20221207', 3, 'Trancoso da Silva'), ('20221216', 4, 'Trancoso da Silva'), 
-	  ('20221209', 5, 'Pedro do Monte'), ('20221210', 6, 'Pedro do Monte'),
-	  ('20221214', 7, 'José Carmelo'), ('20221218', 8, 'José Carmelo'),
-	  ('20221220', 9, 'Júlio Cardoso'), ('20221222', 10, 'Júlio Cardoso'),
-	  ('20221224', 7, 'José Carmelo'), ('20221225', 7, 'José Carmelo'),
-	  ('20221226', 9, 'Júlio Cardoso'), ('20221227', 10, 'Júlio Cardoso'), ('20221228', 10, 'Júlio Cardoso')
+values('20221201', 3, 'Trancoso da Silva'), ('20221205', 3, 'Trancoso da Silva'),
+	  ('20221207', 3, 'Trancoso da Silva'), ('20221216', 3, 'Trancoso da Silva'), 
+	  ('20221209', 1, 'Pedro do Monte'), ('20221210', 1, 'Pedro do Monte'),
+	  ('20221214', 2, 'José Carmelo'), ('20221218', 2, 'José Carmelo'),
+	  ('20221220', 4, 'Júlio Cardoso'), ('20221222', 4, 'Júlio Cardoso'),
+	  ('20221224', 2, 'José Carmelo'), ('20221225', 2, 'José Carmelo'),
+	  ('20221226', 4, 'Júlio Cardoso'), ('20221227', 4, 'Júlio Cardoso'), ('20221228', 4, 'Júlio Cardoso')
 commit;
 select * from producao.ficha;
 
@@ -123,23 +123,24 @@ commit;
 select * from producao.produto;
 
 
---não pode ser identity (1, 1) auto incrementavel pq é um código único para cada inspetor
---está fazendo com que repita datas e horarios de trabalho TABELAS: producao.inspetor / producao.controle_qualidade	-> teste pergunta n°2
+--não pode ser identity (1, 1) auto incrementavel pq é um código único para cada inspetor.
+--está fazendo com que repita datas e horarios de trabalho TABELAS: producao.inspetor / producao.controle_qualidade	-> teste pergunta n°2.
 begin transaction; 
 insert into producao.controle_qualidade	
 	(dt_controle_qualidade,		hr_inicio_controle_qualidade,	hr_fim_controle_qualidade,	 cd_numero_ficha,
 	 dt_inspecao,	cd_matricula_inspetor,	nm_inspetor,	dt_trabalho,	hr_inicio_trabalho,	hr_fim_trabalho,
 	 cd_id_produto,		cd_linha_producao,		dt_linha_producao,		cd_tipo_produto,	sg_avaliacao)
-values('20221201', '8:00', '11:55', 1, '20221201', 1, 'Trancoso da Silva', '20221201','9:05', '11:05', 1, 1, '20221201', 2, 'TR'), 
-	  ('20221205', '8:00', '11:55', 1, '20221205', 2, 'Trancoso da Silva', '20221205','9:00', '11:00', 5, 2, '20221205', 3, 'TR'),
-	  ('20221207', '8:00', '11:55', 1, '20221207', 3, 'Trancoso da Silva', '20221207','9:10', '11:10', 3, 3, '20221207', 3, 'OK'),
-	  ('20221216', '8:00', '11:55', 1, '20221216', 4, 'Trancoso da Silva', '20221216','9:00', '11:10', 1, 7, '20221216', 1, 'TR'), 
-	  ('20221209', '8:00', '11:55', 2, '20221209', 6, 'Pedro do Monte', '20221209','9:10', '11:10', 2, 4, '20221209', 5, 'EL'),
-	  ('20221220', '8:00', '11:55', 3, '20221220', 9, 'Júlio Cardoso', '20221220','9:15', '11:15', 4, 9, '20221220', 4, 'PE')
+values('20221201', '8:00', '11:55', 1, '20221201', 1, 'Trancoso da Silva', '20221201','13:00', '16:0', 1, 1, '20221201', 2, 'TR'), 
+	  ('20221205', '8:00', '11:55', 1, '20221205', 2, 'Trancoso da Silva', '20221205','13:00', '16:00', 5, 2, '20221205', 3, 'TR'),
+	  ('20221207', '8:00', '11:55', 1, '20221207', 3, 'Trancoso da Silva', '20221207','13:00', '16:00', 3, 3, '20221207', 3, 'OK'),
+	  ('20221216', '8:00', '11:55', 1, '20221216', 4, 'Trancoso da Silva', '20221216','13:00', '16:00', 1, 7, '20221216', 1, 'TR'), 
+	  ('20221209', '8:00', '11:55', 2, '20221209', 6, 'Pedro do Monte', '20221209','13:00', '16:00', 2, 4, '20221209', 5, 'EL'),
+	  ('20221220', '8:00', '11:55', 3, '20221220', 9, 'Júlio Cardoso', '20221220','13:00', '16:00', 4, 9, '20221220', 4, 'PE')
 commit;
 select * from producao.controle_qualidade;
 
 --------------------------------------------------------------------------------------------------------------------------------
+--pode apagar
 select dt_trabalho, count(*) --função de agregação
 from producao.controle_qualidade
 group by dt_trabalho
