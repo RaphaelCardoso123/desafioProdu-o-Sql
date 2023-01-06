@@ -1,3 +1,4 @@
+create database desafio;
 use desafio;
 create schema producao;
 
@@ -128,36 +129,31 @@ select * from producao.produto;
 begin transaction; 
 insert into producao.controle_qualidade	
 	(dt_controle_qualidade,		hr_inicio_controle_qualidade,	hr_fim_controle_qualidade,	 cd_numero_ficha,
-	 dt_inspecao,	cd_matricula_inspetor,	nm_inspetor,	dt_trabalho,	hr_inicio_trabalho,	hr_fim_trabalho,
+	 dt_inspecao,	cd_matricula_inspetor,	nm_inspetor,	
 	 cd_id_produto,		cd_linha_producao,		dt_linha_producao,		cd_tipo_produto,	sg_avaliacao)
-values('20221201', '8:00', '11:55', 1, '20221201', 1, 'Trancoso da Silva', '20221201','13:00', '16:0', 1, 1, '20221201', 2, 'TR'), 
-	  ('20221205', '8:00', '11:55', 1, '20221205', 2, 'Trancoso da Silva', '20221205','13:00', '16:00', 5, 2, '20221205', 3, 'TR'),
-	  ('20221207', '8:00', '11:55', 1, '20221207', 3, 'Trancoso da Silva', '20221207','13:00', '16:00', 3, 3, '20221207', 3, 'OK'),
-	  ('20221216', '8:00', '11:55', 1, '20221216', 4, 'Trancoso da Silva', '20221216','13:00', '16:00', 1, 7, '20221216', 1, 'TR'), 
-	  ('20221209', '8:00', '11:55', 2, '20221209', 6, 'Pedro do Monte', '20221209','13:00', '16:00', 2, 4, '20221209', 5, 'EL'),
-	  ('20221220', '8:00', '11:55', 3, '20221220', 9, 'Júlio Cardoso', '20221220','13:00', '16:00', 4, 9, '20221220', 4, 'PE')
+values('20221201', '8:00', '11:55', 1, '20221201', 1, 'Trancoso da Silva', 1, 1, '20221201', 2, 'TR'), 
+	  ('20221205', '8:00', '11:55', 1, '20221205', 2, 'Trancoso da Silva', 5, 2, '20221205', 3, 'TR'),
+	  ('20221207', '8:00', '11:55', 1, '20221207', 3, 'Trancoso da Silva',  3, 3, '20221207', 3, 'OK'),
+	  ('20221216', '8:00', '11:55', 1, '20221216', 4, 'Trancoso da Silva',  1, 7, '20221216', 1, 'TR'), 
+	  ('20221209', '8:00', '11:55', 2, '20221209', 6, 'Pedro do Monte', 2, 4, '20221209', 5, 'EL'),
+	  ('20221220', '8:00', '11:55', 3, '20221220', 9, 'Júlio Cardoso', 4, 9, '20221220', 4, 'PE')
 commit;
 select * from producao.controle_qualidade;
 
---------------------------------------------------------------------------------------------------------------------------------
---pode apagar
-select dt_trabalho, count(*) --função de agregação
-from producao.controle_qualidade
-group by dt_trabalho
-order by dt_trabalho;
+
 --------------------------------------------------------------------------------------------------------------------------------
 --1. Quantas horas de controle de qualidade o inspetor Trancoso da Silva fez no dia 16/12/2022 ?
-select i.nm_inspetor, count(*),  i.dt_trabalho, cq.hr_inicio_trabalho, cq.hr_fim_trabalho
+select cq.nm_inspetor, count(*),  i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
 from producao.inspetor as i, producao.controle_qualidade as cq
-where i.nm_inspetor = 'Trancoso da Silva' and i.dt_trabalho = '20221216' and i.nm_inspetor  = cq.nm_inspetor
-group by i.nm_inspetor, i.dt_trabalho, cq.hr_inicio_trabalho, cq.hr_fim_trabalho
-order by i.nm_inspetor;
+where cq.nm_inspetor = 'Trancoso da Silva' and i.dt_trabalho = '20221216' and i.nm_inspetor  = cq.nm_inspetor
+group by cq.nm_inspetor, i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
+order by cq.nm_inspetor;
 --------------------------------------------------------------------------------------------------------------------------------
 --teste pergunta n°2
-select i.nm_inspetor, count(*),  i.dt_trabalho, cq.hr_inicio_trabalho, cq.hr_fim_trabalho
+select cq.nm_inspetor, count(*),  i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
 from producao.inspetor as i, producao.controle_qualidade as cq
-where i.nm_inspetor = 'Trancoso da Silva' and i.nm_inspetor  = cq.nm_inspetor
-group by i.nm_inspetor, i.dt_trabalho, cq.hr_inicio_trabalho, cq.hr_fim_trabalho
+where cq.nm_inspetor = 'Trancoso da Silva' and i.nm_inspetor  = cq.nm_inspetor
+group by cq.nm_inspetor, i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
 order by i.dt_trabalho;
 --------------------------------------------------------------------------------------------------------------------------------
 --2. Quantas horas o inspetor Trancoso da Silva trabalhou no período de 01/12/2022 à 22/12/2022?
