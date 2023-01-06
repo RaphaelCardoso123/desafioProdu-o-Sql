@@ -149,15 +149,13 @@ where cq.nm_inspetor = 'Trancoso da Silva' and i.dt_trabalho = '20221216' and i.
 group by cq.nm_inspetor, i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
 order by cq.nm_inspetor;
 --------------------------------------------------------------------------------------------------------------------------------
---teste pergunta n°2
+--2. Quantas horas o inspetor Trancoso da Silva trabalhou no período de 01/12/2022 à 22/12/2022?
+--teste 
 select cq.nm_inspetor, count(*),  i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
 from producao.inspetor as i, producao.controle_qualidade as cq
 where cq.nm_inspetor = 'Trancoso da Silva' and i.nm_inspetor  = cq.nm_inspetor
 group by cq.nm_inspetor, i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
 order by i.dt_trabalho;
---------------------------------------------------------------------------------------------------------------------------------
---2. Quantas horas o inspetor Trancoso da Silva trabalhou no período de 01/12/2022 à 22/12/2022?
-
 --------------------------------------------------------------------------------------------------------------------------------
 --3. Quais os tipos de defeito mais recorrentes no período de 01/12/2022 à 22/12/2022?
 
