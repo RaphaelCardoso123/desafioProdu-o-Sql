@@ -158,7 +158,11 @@ group by cq.nm_inspetor, i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
 order by i.dt_trabalho;
 --------------------------------------------------------------------------------------------------------------------------------
 --3. Quais os tipos de defeito mais recorrentes no período de 01/12/2022 à 22/12/2022?
-
+select 
+from 
+where 
+group by
+order by
 --------------------------------------------------------------------------------------------------------------------------------
 --4. Quais inspetores atestam mais produtos com avaliação TR, todo rejeitado?
 
