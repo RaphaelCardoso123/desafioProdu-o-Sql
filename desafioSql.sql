@@ -103,7 +103,7 @@ values('Trancoso da Silva', '20221201', '9:05', '11:05'), ('Trancoso da Silva', 
 commit;
 select * from producao.inspetor;
 
---cd_matricula
+
 begin transaction; 
 insert into producao.ficha(dt_inspecao, cd_matricula_inspetor, nm_inspetor)
 values('20221201', 3, 'Trancoso da Silva'), ('20221205', 3, 'Trancoso da Silva'),
@@ -125,7 +125,6 @@ select * from producao.produto;
 
 
 --não pode ser identity (1, 1) auto incrementavel pq é um código único para cada inspetor.
---está fazendo com que repita datas e horarios de trabalho TABELAS: producao.inspetor / producao.controle_qualidade	-> teste pergunta n°2.
 begin transaction; 
 insert into producao.controle_qualidade	
 	(dt_controle_qualidade,		hr_inicio_controle_qualidade,	hr_fim_controle_qualidade,	 cd_numero_ficha,
@@ -159,7 +158,7 @@ order by i.dt_trabalho;
 --------------------------------------------------------------------------------------------------------------------------------
 --3. Quais os tipos de defeito mais recorrentes no período de 01/12/2022 à 22/12/2022?
 --não está correto!!!!!
-select  a.sg_avaliacao, datediff(DAY, cq.hr_inicio_controle_qualidade, cq.hr_fim_controle_qualidade) as total
+select  a.sg_avaliacao, datediff(HOUR, cq.hr_inicio_controle_qualidade, cq.hr_fim_controle_qualidade) as total
 from producao.avaliacao as a, producao.controle_qualidade as cq
 where a.sg_avaliacao = cq.sg_avaliacao
 --------------------------------------------------------------------------------------------------------------------------------
