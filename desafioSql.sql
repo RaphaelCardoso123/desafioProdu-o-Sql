@@ -54,18 +54,18 @@ create table producao.ficha(
 --aqui não é necessário colocar - > on delete cascade on update cascade ???
 create table producao.controle_qualidade( 
 	 cd_controle_qualidade	        int    primary key    identity(1, 1)
-	,dt_controle_qualidade		    date                                  not null
-	,hr_inicio_controle_qualidade	time                                  not null
-	,hr_fim_controle_qualidade      time                                  not null
-	,cd_numero_ficha                int                                   not null--foreign key
-	,dt_inspecao                    date                                  not null
-	,cd_matricula_inspetor          int						              not null--foreign key
-	,nm_inspetor                    varchar(30)                           not null
-	,cd_id_produto                  int                                   not null--foreign key
-	,cd_linha_producao              int                                   not null--foreign key
-	,dt_linha_producao              date                                  not null
-	,cd_tipo_produto                int                                   not null--foreign key
-	,sg_avaliacao                   char(2)                               not null--foreign key
+	,dt_controle_qualidade          date                                    not null
+	,hr_inicio_controle_qualidade	time                                    not null
+	,hr_fim_controle_qualidade      time                                    not null
+	,cd_numero_ficha                int                                     not null--foreign key
+	,dt_inspecao                    date                                    not null
+	,cd_matricula_inspetor          int                                     not null--foreign key
+	,nm_inspetor                    varchar(30)                             not null
+	,cd_id_produto                  int                                     not null--foreign key
+	,cd_linha_producao              int                                     not null--foreign key
+	,dt_linha_producao              date                                    not null
+	,cd_tipo_produto                int                                     not null--foreign key
+	,sg_avaliacao                   char(2)                                 not null--foreign key
 	,foreign key(cd_numero_ficha)             references producao.ficha(cd_numero_ficha)
 	,foreign key(cd_matricula_inspetor)       references producao.inspetor(cd_matricula_inspetor)
 	,foreign key(cd_id_produto)               references producao.produto(cd_id_produto)
