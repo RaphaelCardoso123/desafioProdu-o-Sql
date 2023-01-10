@@ -148,25 +148,25 @@ select * from producao.controle_qualidade;
 
 --------------------------------------------------------------------------------------------------------------------------------
 --1. Quantas horas de controle de qualidade o inspetor Trancoso da Silva fez no dia 16/12/2022 ?
-select cq.nm_inspetor, count(*),  i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
-from producao.inspetor as i, producao.controle_qualidade as cq
-where cq.nm_inspetor = 'Trancoso da Silva' and i.dt_trabalho = '20221216' and i.nm_inspetor  = cq.nm_inspetor
-group by cq.nm_inspetor, i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
-order by cq.nm_inspetor;
+select     cq.nm_inspetor, count(*),  i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
+from       producao.inspetor as i, producao.controle_qualidade as cq
+where      cq.nm_inspetor = 'Trancoso da Silva' and i.dt_trabalho = '20221216' and i.nm_inspetor  = cq.nm_inspetor
+group by   cq.nm_inspetor, i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
+order by   cq.nm_inspetor;
 --------------------------------------------------------------------------------------------------------------------------------
 --2. Quantas horas o inspetor Trancoso da Silva trabalhou no período de 01/12/2022 à 22/12/2022?
 --teste 
-select cq.nm_inspetor, count(*),  i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
-from producao.inspetor as i, producao.controle_qualidade as cq
-where cq.nm_inspetor = 'Trancoso da Silva' and i.nm_inspetor  = cq.nm_inspetor
-group by cq.nm_inspetor, i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
-order by i.dt_trabalho;
+select    cq.nm_inspetor, count(*),  i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
+from      producao.inspetor as i, producao.controle_qualidade as cq
+where     cq.nm_inspetor = 'Trancoso da Silva' and i.nm_inspetor  = cq.nm_inspetor
+group by  cq.nm_inspetor, i.dt_trabalho, i.hr_inicio_trabalho, i.hr_fim_trabalho
+order by  i.dt_trabalho;
 --------------------------------------------------------------------------------------------------------------------------------
 --3. Quais os tipos de defeito mais recorrentes no período de 01/12/2022 à 22/12/2022?
 --não está correto!!!!!
 select  a.sg_avaliacao, datediff(HOUR, cq.hr_inicio_controle_qualidade, cq.hr_fim_controle_qualidade) as total
-from producao.avaliacao as a, producao.controle_qualidade as cq
-where a.sg_avaliacao = cq.sg_avaliacao
+from    producao.avaliacao as a, producao.controle_qualidade as cq
+where   a.sg_avaliacao = cq.sg_avaliacao
 --------------------------------------------------------------------------------------------------------------------------------
 --4. Quais inspetores atestam mais produtos com avaliação TR, todo rejeitado?
 
