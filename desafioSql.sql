@@ -33,19 +33,19 @@ create table producao.avaliacao(
 
 --não pode ser identity (1, 1) auto incrementavel pq é um código único para cada inspetor
 create table producao.inspetor(
-	 cd_matricula_inspetor  int          primary key     identity(1, 1)
-	,nm_inspetor            varchar(30)                  not null
-	,dt_trabalho            date                         not null
-	,hr_inicio_trabalho     time                         not null
-	,hr_fim_trabalho        time                         not null
+	 cd_matricula_inspetor      int          primary key     identity(1, 1)
+	,nm_inspetor                varchar(30)                  not null
+	,dt_trabalho                date                         not null
+	,hr_inicio_trabalho         time                         not null
+	,hr_fim_trabalho            time                         not null
 );
 
 create table producao.ficha(
-	 cd_numero_ficha int primary key identity(1, 1)
-	,dt_inspecao date not null
-	,cd_matricula_inspetor int not null
-	,nm_inspetor varchar(30) not null
-	,foreign key(cd_matricula_inspetor) references producao.inspetor(cd_matricula_inspetor)
+	 cd_numero_ficha            int          primary key      identity(1, 1)
+	,dt_inspecao                date                          not null
+	,cd_matricula_inspetor      int                           not null
+	,nm_inspetor                varchar(30)                   not null
+	,foreign key(cd_matricula_inspetor)     references producao.inspetor(cd_matricula_inspetor)
 	 on delete cascade
 	 on update cascade
 );
