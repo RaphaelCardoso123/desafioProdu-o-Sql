@@ -73,7 +73,7 @@ select * from producao.linha_producao;
 
 begin transaction;
 insert into producao.tipo_produto(nm_tipo_produto)
-values     ('Geladeira'), ('Máquina de lavar'), ('Fogão'), ('Freezer'), ('Frigobar')
+values      ('Geladeira'), ('Máquina de lavar'), ('Fogão'), ('Freezer'), ('Frigobar')
 commit;
 select * from producao.tipo_produto;
 
@@ -106,7 +106,7 @@ values		('20221201', 3), ('20221205', 3)
         ,	('20221220', 4), ('20221222', 4)
         ,	('20221224', 2), ('20221225', 2)
         ,	('20221226', 4), ('20221227', 4)
-        ,   ('20221228', 4)
+		,   ('20221228', 4)
 commit;
 select * from producao.ficha;
 
@@ -155,7 +155,7 @@ where    nm_inspetor = 'Trancoso da Silva' and dt_trabalho between '20221201' an
 --3. Quais os tipos de defeito mais recorrentes no período de 01/12/2022 à 22/12/2022?
 --R: O erro mais recorrente nesse periodo foi TR.
 
-select     a.sg_avaliacao, count(1)    as       Tipos_Defeitos_Recorrentes
+select     a.sg_avaliacao, count(1)    as       Quantidade_Defeitos
 from       producao.avaliacao          as a
 left join  producao.controle_qualidade as b on  b.sg_avaliacao    =  a.sg_avaliacao
 left join  producao.ficha              as c on  c.cd_numero_ficha =  b.cd_numero_ficha
