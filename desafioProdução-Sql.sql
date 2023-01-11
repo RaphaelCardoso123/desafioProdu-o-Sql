@@ -106,7 +106,7 @@ values		('20221201', 3), ('20221205', 3)
         ,	('20221220', 4), ('20221222', 4)
         ,	('20221224', 2), ('20221225', 2)
         ,	('20221226', 4), ('20221227', 4)
-		,	('20221228', 4)
+        ,   ('20221228', 4)
 commit;
 select * from producao.ficha;
 
@@ -146,35 +146,35 @@ where      i.nm_inspetor = 'Trancoso da Silva' and i.dt_trabalho = '20221216' an
 --2. Quantas horas o inspetor Trancoso da Silva trabalhou no período de 01/12/2022 à 22/12/2022?
 --R: Ele trabalhou 8 horas nesse periodo.
 
-select sum(datediff(HOUR, hr_inicio_trabalho, hr_fim_trabalho)) as Total_Horas_Trabalhadas_Mes
-from   producao.inspetor 
-where  nm_inspetor = 'Trancoso da Silva' and dt_trabalho between '20221201' and '20221222';
+select   sum(datediff(HOUR, hr_inicio_trabalho, hr_fim_trabalho)) as Total_Horas_Trabalhadas_Mes
+from     producao.inspetor 
+where    nm_inspetor = 'Trancoso da Silva' and dt_trabalho between '20221201' and '20221222';
 
 
 --------------------------------------------------------------------------------------------------------------------------------
 --3. Quais os tipos de defeito mais recorrentes no período de 01/12/2022 à 22/12/2022?
 --R: O erro mais recorrente nesse periodo foi TR.
 
-select a.sg_avaliacao, count(1) as Tipos_Defeitos_Recorrentes
-from producao.avaliacao as a
-left join producao.controle_qualidade as b on b.sg_avaliacao = a.sg_avaliacao
-left join producao.ficha as c on c.cd_numero_ficha = b.cd_numero_ficha
-where c.dt_inspecao between '20221201' and '20221222'
-and a.sg_avaliacao != 'OK'
-group by a.sg_avaliacao
-order by 2 desc
+select     a.sg_avaliacao, count(1)    as       Tipos_Defeitos_Recorrentes
+from       producao.avaliacao          as a
+left join  producao.controle_qualidade as b on  b.sg_avaliacao    =  a.sg_avaliacao
+left join  producao.ficha              as c on  c.cd_numero_ficha =  b.cd_numero_ficha
+where      c.dt_inspecao between '20221201' and '20221222'
+and        a.sg_avaliacao != 'OK'
+group by   a.sg_avaliacao
+order by   2   desc
 
 
 --------------------------------------------------------------------------------------------------------------------------------
 --4. Quais inspetores atestam mais produtos com avaliação TR, todo rejeitado?
 --R: O inspetor que atestou mais avaliação TR foi o Trancoso da Silva.
-select i.nm_inspetor, COUNT(1) as Avaliacao_TR
-from producao.inspetor as i
-left join producao.ficha as f on f.cd_matricula_inspetor = i.cd_matricula_inspetor
-left join producao.controle_qualidade as cq on cq.cd_matricula_inspetor = i.cd_matricula_inspetor
-where cq.sg_avaliacao = 'TR'
-group by i.nm_inspetor
-order by 2 desc
+select     i.nm_inspetor, COUNT(1)     as Avaliacao_TR
+from       producao.inspetor           as i
+left join  producao.ficha              as f  on f.cd_matricula_inspetor = i.cd_matricula_inspetor
+left join  producao.controle_qualidade as cq on cq.cd_matricula_inspetor = i.cd_matricula_inspetor
+where      cq.sg_avaliacao = 'TR'
+group by   i.nm_inspetor
+order by   2   desc
 
 	
 --------------------------------------------------------------------------------------------------------------------------------
